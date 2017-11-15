@@ -1,12 +1,12 @@
 version: '3'
 services:
   env:
-    image: "python:3.6"
+    image: "python:3.6-slim"
     links:
-      - elasticmq
+      - redis
     environment:
       - DEBUG=1
-      - SQS_ENDPOINT=elasticmq:9324
+      - REDIS_HOST=redis
     command: /bin/bash -c "cd /opt/human_friendly_alert; pip install -e .;human_friendly_alert runserver"
-  elasticmq:
-    image: "mumoshu/elasticmq:0.9.3"
+  redis:
+    image: "redis:4.0.2-alpine"
