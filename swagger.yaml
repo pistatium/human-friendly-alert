@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: HumanFriendlyAlert
+  description: https://github.com/pistatium/human-friendly-alert
+  version: 0.0.1
+
+paths:
+  /alert:
+    post:
+      summary: Incomming webhook to alert messages.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                type:
+                  type: string
+                level:
+                  type: string
+                status:
+                  type: string
+                detail:
+                  type: string
+      responses:
+        '200':
+          description: Successfully received alert message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
