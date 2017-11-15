@@ -103,3 +103,5 @@ ENV/
 # Direnv
 .direnv/
 .envrc
+
+docker-compose.override.yml

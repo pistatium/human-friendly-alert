@@ -4,24 +4,26 @@ import sys
 from os.path import dirname
 from logging import getLogger, StreamHandler, DEBUG
 
-from flask import Flask
 import click
+
+from .app import app
+
 
 handler = StreamHandler(sys.stdout)
 logger = getLogger(dirname(__name__))
 logger.propagate = False
 logger.addHandler(handler)
 
-app = Flask(__name__)
-
 
 @click.group()
 def cmd():
     pass
 
+
 @cmd.command()
 def alert():
     click.echo('Hello world')
+
 
 @cmd.command()
 @click.option('--debug', is_flag=True, default=True)
@@ -33,6 +35,7 @@ def runserver(host, port, debug):
         handler.setLevel(DEBUG)
         logger.setLevel(DEBUG)
     app.run(host=host, port=port)
+
 
 def main():
     cmd()

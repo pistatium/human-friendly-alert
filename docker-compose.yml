@@ -7,6 +7,8 @@ services:
     environment:
       - DEBUG=1
       - REDIS_HOST=redis
+    volumes:
+      - .:/opt/human_friendly_alert
     command: /bin/bash -c "cd /opt/human_friendly_alert; pip install -e .;human_friendly_alert runserver"
   redis:
     image: "redis:4.0.2-alpine"
