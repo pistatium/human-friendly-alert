@@ -25,6 +25,8 @@ paths:
                   type: string
                 detail:
                   type: string
+                duration:
+                  type: integer
       responses:
         '200':
           description: Successfully received alert message.
