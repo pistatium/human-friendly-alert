@@ -5,6 +5,32 @@ info:
   version: 0.0.1
 
 paths:
+  /project:
+    post:
+      summary: Create project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              name:
+                type: string
+              slack_conf:
+                type: object
+                properties:
+                  channel:
+                    type: string
+                  username:
+                    type: string
+                  icon_emoji:
+                    type: string
+              description:
+                required: false
+                type: string
+              url:
+                required: false
+                type: string
+
   /alert:
     post:
       summary: Incomming webhook to alert messages.
