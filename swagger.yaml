@@ -5,6 +5,19 @@ info:
   version: 0.0.1
 
 paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
   /project:
     post:
       summary: Create project
@@ -13,23 +26,27 @@ paths:
         content:
           application/json:
             schema:
-              name:
-                type: string
-              slack_conf:
-                type: object
-                properties:
-                  channel:
-                    type: string
-                  username:
-                    type: string
-                  icon_emoji:
-                    type: string
-              description:
-                required: false
-                type: string
-              url:
-                required: false
-                type: string
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                url:
+                  type: string
+                slack_conf:
+                  type: object
+                  properties:
+                    channel:
+                      type: string
+                    username:
+                      type: string
+                    icon_emoji:
+                      type: string
+
+      responses:
+        '201':
+          description: 'created'
 
   /alert:
     post:
