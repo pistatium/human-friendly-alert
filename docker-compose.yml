@@ -1,14 +1,35 @@
 version: '3'
 services:
-  env:
+  web:
     image: "python:3.6-slim"
     links:
       - redis
+      - dynamodb
     environment:
       - DEBUG=1
       - REDIS_HOST=redis
+      - DYNAMODB_HOST=dynamodb
     volumes:
       - .:/opt/human_friendly_alert
     command: /bin/bash -c "cd /opt/human_friendly_alert; pip install -e .;human_friendly_alert runserver"
+  worker:
+    image: "python:3.6-slim"
+    links:
+      - redis
+      - dynamodb
+    environment:
+      - DEBUG=1
+      - REDIS_HOST=redis
+      - DYNAMODB_HOST=dynamodb
+    volumes:
+      - .:/opt/human_friendly_alert
+    command: /bin/bash -c "cd /opt/human_friendly_alert; pip install -e .; while true; do human_friendly_alert alert; sleep 60s; done"
   redis:
     image: "redis:4.0.2-alpine"
+  dynamodb:
+    image: "tray/dynamodb-local"
+    command: -dbPath /var/lib/dynamodb -sharedDb
+    volumes:
+      - dynamodb-volume:/var/lib/dynamodb
+volumes:
+  dynamodb-volume:
